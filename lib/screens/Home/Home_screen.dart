@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 699,
+                  width: 950,
                   height: 694,
                   decoration: BoxDecoration(
                     color: Colors.white, // Ganti dengan warna yang diinginkan
@@ -98,7 +98,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: TableSection(),
                 ),
                 SizedBox(width: 20),
-                JastipPopularList(),
+                Container(
+                  width: 300,
+                  height: 694,
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Ganti dengan warna yang diinginkan
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.all(20),
+                  child: JastipPopularList(),
+                ),
               ],
             ),
           ],
@@ -174,7 +183,7 @@ class TableSection extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child:DataTable(
-              columnSpacing: 120,
+              columnSpacing: 250,
               columns: [
                 DataColumn(
                   label: Container(
@@ -230,19 +239,106 @@ class TableSection extends StatelessWidget {
 
 
 class JastipPopularList extends StatelessWidget {
+  final List<Map<String, String>> items = [
+    {
+      'name': 'Idgar Raka',
+      'job': 'Lab Animasi',
+      'image': 'assets/images/boy.png',
+    },
+    {
+      'name': 'Yolanda Vikata',
+      'job': 'Rusmart',
+      'image': 'assets/images/girl.png',
+    },
+    {
+      'name': 'Sandy Falata',
+      'job': 'Lab Rpl',
+      'image': 'assets/images/boy.png',
+    },
+    {
+      'name': 'Rania Listasya',
+      'job': 'Ruang Guru',
+      'image': 'assets/images/girl.png',
+    },
+    {
+      'name': 'Regantara',
+      'job': 'Cafetaria Animasi',
+      'image': 'assets/images/boy.png',
+    },
+    {
+      'name': 'Revana Riyaya',
+      'job': 'Ruang Gambar Dkv',
+      'image': 'assets/images/girl.png',
+    },
+    {
+      'name': 'Rendana Victor',
+      'job': 'Gym Rpl',
+      'image': 'assets/images/boy.png',
+    },
+    {
+      'name': 'Santika dewi',
+      'job': 'Kelas Dg',
+      'image': 'assets/images/girl.png',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
       padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Jastip Popular List',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            'Jastiper Populer',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
           ),
-          // Implement list fetching data from Firebase Cloud Firestore API here
-          // For example, use StreamBuilder or FutureBuilder
+          SizedBox(height: 16),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                for (var item in items)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 27 ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundImage: AssetImage(item['image']!),
+                        ),
+                        SizedBox(width: 5),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['name']!,
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+                            ),
+                            Text(
+                              item['job']!,
+                              style: TextStyle(fontSize: 12, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ],
       ),
     );
