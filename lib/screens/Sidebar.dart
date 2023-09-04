@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../config/palette.dart';
+import 'Admin/Admin_add.dart';
 import 'Admin/Admin_screen.dart';
 import 'Home/Home_screen.dart';
 import 'Report/Report_screen.dart';

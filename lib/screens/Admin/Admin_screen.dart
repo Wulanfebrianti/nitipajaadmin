@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nitipajaadmin/screens/Admin/Admin_add.dart';
 
 import '../../config/palette.dart';
 
@@ -65,22 +66,27 @@ class _AdminScreenState extends State<AdminScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(
-                left: 70,
-                right: 70,
-                bottom: 10,
-                top: 10,
-              ),
-              decoration: BoxDecoration(
-                color: Palette.activeColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                'Tambah Admin',
-                style: TextStyle(
-                  color: Colors.white, // Warna teks tombol
-                  fontSize: 15.0,
+            InkWell(
+              onTap: (){
+                showDialog(context: context, builder: (context) => AdminAdd(),);
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: 70,
+                  right: 70,
+                  bottom: 10,
+                  top: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Palette.activeColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'Tambah Admin',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                  ),
                 ),
               ),
             ),
