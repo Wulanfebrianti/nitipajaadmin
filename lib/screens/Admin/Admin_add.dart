@@ -1,339 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:nitipajaadmin/screens/Admin/Admin_add.dart';
-
 import '../../config/palette.dart';
-import 'Admin_Succes.dart';
+import '../Detail/Detail_Admin.dart';
+import '../Detail/Detail_Laporan.dart';
+import '../Detail/Detail_Pengguna.dart';
+import '../Detail/Detail_Produk.dart';
 
+class AdminAdd extends StatelessWidget {
+  final List<Color> buttonColors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+  ];
 
-class AdminAdd extends StatefulWidget {
-  const AdminAdd({super.key});
+  final List<String> buttonNames = [
+    'Detail Pengguna',
+    'Detail Produk',
+    'Detail Laporan',
+    'Detail Admin',
+  ];
 
-  @override
-  State<AdminAdd> createState() => _AdminAddState();
-}
-
-class _AdminAddState extends State<AdminAdd> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        actions: [
-          // Search Bar
-          Container(
-            width: 200,
-            margin: EdgeInsets.only(right: 16),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Cari...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                contentPadding: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-                suffixIcon: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(6)),
-                    color: Palette.activeColor, // Ganti dengan warna yang diinginkan
-                  ),
-                  height: 24,
-                  width: 24,
-                  child: Icon(Icons.search, color: Colors.white),
-                ),
-              ),
-              onChanged: (value) {
-                // Handle onChanged event here
-              },
-            ),
-          ),
-          SizedBox(width: 16),
-          // Dropdown Profil
-          DropdownButton<String>(
-            items: ['Logout']
-                .map((String value) => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            ))
-                .toList(),
-            onChanged: (String? newValue) {
-              // Handle onChanged event here
-            },
-          ),
-          SizedBox(width: 16),
-        ],
-      ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
-          children: [
-            Text(
-              'Tambah Admin',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Colors.black,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(4, (index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Widget nextPage;
+                  switch (index) {
+                    case 0:
+                      nextPage = DetailPengguna();
+                      break;
+                    case 1:
+                      nextPage = DetailProduk();
+                      break;
+                    case 2:
+                      nextPage = DetailLaporan();
+                      break;
+                    case 3:
+                      nextPage = DetailAdmin();
+                      break;
+                    default:
+                      nextPage = DetailPengguna();
+                      nextPage = DetailProduk();
+                      nextPage = DetailLaporan();
+                      nextPage = DetailAdmin();
+                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => nextPage),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: buttonColors[index],
+                ),
+                child: Text(buttonNames[index]),
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 500,
-                  height: 500,
-                  color: Colors.white,
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 450,
-                        child: UserTable(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
+            );
+          }),
         ),
-      ),
-    );
-  }
-}
-
-class UserTable extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      padding: EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 16),
-          Container(
-            height: 475,
-            width: 440,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Nama Pengguna and Nama Lengkap side by side
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust as needed
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nama Pengguna',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nama Lengkap',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16), // Adjust spacing between rows
-
-                // Repeat the same structure for the next 4 columns
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust as needed
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nomor Telepon',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16), // Adjust spacing between rows
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust as needed
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Peran',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Kirim Cv',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          TextField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Palette.activeColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 50),
-                Container(
-                  height: 50,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    color: Palette.activeColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AdminSucces();
-                        },
-                      );
-                    },
-                    child: Center(
-                      child: Text(
-                        'Kirim',
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

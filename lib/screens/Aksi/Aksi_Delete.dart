@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nitipajaadmin/screens/Admin/Admin_screen.dart';
 import '../../../config/palette.dart';
 
-class AdminSucces extends StatelessWidget {
+class DialogHapus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -12,7 +12,7 @@ class AdminSucces extends StatelessWidget {
         width: 320,
         height: 320,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(40),
           color: Colors.white,
         ),
         child: Column(
@@ -22,14 +22,14 @@ class AdminSucces extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               child: Icon(
-                CupertinoIcons.checkmark_seal_fill,
-                color: Palette.activeColor,
+                CupertinoIcons.trash,
+                color: Colors.red,
                 size: 70,
               ),
             ),
             SizedBox(height: 20),
             Text(
-              'Berhasil',
+              'telah dihapus!',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class AdminSucces extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Admin Berhasil Di Tambahkan',
+              'berhasil dihapus dari daftar Anda.',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -48,11 +48,7 @@ class AdminSucces extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => AdminScreen(),
-                  ),
-                );
+                Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
                 primary: Palette.activeColor,
@@ -63,7 +59,7 @@ class AdminSucces extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
