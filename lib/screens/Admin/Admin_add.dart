@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../../config/palette.dart';
 import '../Detail/Detail_Admin.dart';
 import '../Detail/Detail_Laporan.dart';
 import '../Detail/Detail_Pengguna.dart';
 import '../Detail/Detail_Produk.dart';
+import '../Profile/Profile.dart';
 
 class AdminAdd extends StatelessWidget {
   final List<Color> buttonColors = [
@@ -11,6 +13,7 @@ class AdminAdd extends StatelessWidget {
     Colors.green,
     Colors.blue,
     Colors.yellow,
+    Colors.orange,
   ];
 
   final List<String> buttonNames = [
@@ -18,6 +21,7 @@ class AdminAdd extends StatelessWidget {
     'Detail Produk',
     'Detail Laporan',
     'Detail Admin',
+    'Profile',
   ];
 
   @override
@@ -26,7 +30,7 @@ class AdminAdd extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(4, (index) {
+          children: List.generate(5, (index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -45,11 +49,15 @@ class AdminAdd extends StatelessWidget {
                     case 3:
                       nextPage = DetailAdmin();
                       break;
+                    case 4:
+                      nextPage = Profile();
+                      break;
                     default:
                       nextPage = DetailPengguna();
                       nextPage = DetailProduk();
                       nextPage = DetailLaporan();
                       nextPage = DetailAdmin();
+                      nextPage = Profile();
                   }
                   Navigator.push(
                     context,
